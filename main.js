@@ -137,10 +137,11 @@ let game = {
         }
       }
     }
-  };
+  }
 
 // using if else if statement for the player to decided if they will play or leave
-startGame();
+
+
   let checkUserPrompt = () => {
     let responseUpperCase = game.userResponse.toUpperCase();
     if (responseUpperCase === "Kill") {
@@ -149,15 +150,18 @@ startGame();
       alert("lol bro, they are just rats, why you scurred");
     }
   };
-  // setting function to start the game, create the shits, display the message of the rats
-let startGame = () => {
-  createAlienShips();
 
   game.userResponse = prompt(
     "Aw shiddd those NASTY RATS are approaching\nCommander, should we KILL or CRY?",
     ""
   );
   checkUserPrompt();
-};
+
+
+  // setting function to start the game, create the shits, display the message of the rats
+  let startGame = () => {
+    createAlienShips();
   
+    startGame();
+  }
   
