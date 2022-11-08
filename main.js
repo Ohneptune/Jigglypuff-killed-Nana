@@ -1,43 +1,43 @@
-//ASSINGING THE GAME *OBJECT
+//assigning the variable game to these 3 values
 let game = {
     round: 0,
     targetShip: 0,
     userResponse: "",
   };
   
-//ASSIGNING MY SHIP *OBJECT
+//assiging the the variable "user ship" to the 3 values
   let lilMizHuffNPuffs = {
-    name: "Lil Miss Puff N Stuff",
-    hull: 20,
-    firePower: 5,
-    accuracy: 0.7,
-    attack: function () {
+    name: "Lil Miss Puff N Stuff", //name
+    hull: 20, //health
+    firePower: 5, //firepower
+    accuracy: 0.7, //accuracy
+    attack: function () { //create a value to attack that is a function
       
-// ATTACK FUNCTION FOR PLAYER .MATH METHOD
-      let attackChance = Math.random();
-      if (attackChance <= this.accuracy) {
+// creating a variable inside the attack function to determine if our attack hits or misses
+      let attackChance = Math.random(); //this makes the user attack randomn
+      if (attackChance <= this.accuracy) { // using this object accuracy follows back to the attack value
         return true;
       } else {
         return false;
-      }
+      } ///if true it should attack/if false it shouldnt attack
     },
   };
 
   
-// CLASS FOR ALIENS
+// creating a class for the aliens
   class SpaceRats {
-    constructor(name, hull, firePower, accuracy) {
+    constructor(name, hull, firePower, accuracy) { //using the constructor method to create values
       this.name = name;
       this.hull = hull;
       this.firePower = firePower;
       this.accuracy = accuracy;
-    }
-    attack() {
+    }//asigned the aliens each their own parameter seperate from the 'user' ship
+    attack() {//create a method called attack for the aliens to attack
 
 
-//ATTACKING FUCNTION FOR THE ALIEN SHIP
-      let attackChance = Math.random();
-      if (attackChance <= this.accuracy) {
+     
+      let attackChance = Math.random();//using the attackChance variable again for random attacks
+      if (attackChance <= this.accuracy) {//accuracy object again to follow the prev values
         return true;
       } else {
         return false;
@@ -46,18 +46,18 @@ let game = {
   }
 
   
-// ALIEN SHIP ARRAYS AND LOOPS
-  let ratShips = []; 
-  let ratHullValues = [3, 4, 5, 6]; 
-  let ratFirePowerValues = [2, 3, 4]; 
-  let ratAccValues = [0.6, 0.7, 0.8]; 
+// creating alien variable and assigning them values for battle
+  let ratShips = []; //any
+  let ratHullValues = [3, 4, 5, 6]; //must be between 3-6
+  let ratFirePowerValues = [2, 3, 4]; //must be between 2-4
+  let ratAccValues = [0.6, 0.7, 0.8]; //must be between .6-.
   
 
-// FLOOR ARRAYS AND THE .MATH METHOD
-  let createAlienShips = () => {
-    for (let i = 0; i < 6; i++) {
-      let name = "Alien Ship " + (i + 1);
-      let hull = ratHullValues[Math.floor(Math.random() * 4)];
+// determining how the alien will attack
+  let createAlienShips = () => {  //create a variable that generates new ships
+    for (let i = 0; i < 6; i++) { //make a for loop that defines i as number in a range less than 6
+      let name = "Nasty Rat Alien Ship " + (i + 1); //value for ship regeneration
+      let hull = ratHullValues[Math.floor(Math.random() * 4)];//use floor method to return if less than the arguement, mulitplied by the amount of values previously
       let firePower = ratFirePowerValues[Math.floor(Math.random() * 3)];
       let accuracy = ratAccValues[Math.floor(Math.random() * 3)];
       ratShips[i] = new SpaceRats(name, hull, firePower, accuracy); 
@@ -65,21 +65,21 @@ let game = {
   };
 
   
-// CREATING A FUNCTION TO START THE WAR
-  let shipsBattle = (ship1, ship2) => {
+// create variable for the ships battle
+  let shipsBattle = (ship1, ship2) => { //create parameters that are greater than follwiong array
     let ships = [ship1, ship2];
     let attack = false;
     let attacking = 0;
     let beingAttacked = 1;
     let temp;
-    console.log("%c Attack Begins =================", "font-size: 30px");
-    while (ships[beingAttacked].hull > 0) {
-      if (ships[beingAttacked].hull > 0) {
+    console.log("Attack Begins =================");
+    while (ships[beingAttacked].hull > 0) {//create a while loop if the hull is greater than 0: true
+      if (ships[beingAttacked].hull > 0) {//create a if loop if the hull is lesser than 0:false
         
         console.log("\n");
-        console.log(
-          `%c ${ships[attacking].name} attacked ${ships[beingAttacked].name}`,
-          "color: purple; border: 1px solid grey; font-size: 18px;"
+        console.log( //console log message  on ships attacked
+          ` ${ships[attacking].name} attacked ${ships[beingAttacked].name}`
+          
         );
 
         
@@ -88,13 +88,13 @@ let game = {
         if (attack === true) {
           ships[beingAttacked].hull -= ships[attacking].firePower; 
           console.log(
-            `%c Attack Successful! ${ships[beingAttacked].name} Hull: ${ships[beingAttacked].hull}`,
-            "color: green; font-weight: bold; font-size: 16px;"
+            `Attack Successful! ${ships[beingAttacked].name} Hull: ${ships[beingAttacked].hull}`,
+            
           );
         } else {
           console.log(
             `%c Attack Unsuccessful! ${ships[beingAttacked].name} Hull: ${ships[beingAttacked].hull}`,
-            "color: red; font-size: 16px;"
+            
           );
         }
         
@@ -102,43 +102,35 @@ let game = {
 // RESULT IF THE SHIPS ARE DESTROYED
         if (ships[beingAttacked].hull <= 0) {
           console.log(
-            `%c ${ships[beingAttacked].name} has been destroyed`,
+            ` ${ships[beingAttacked].name} has been destroyed`,
             
           );
           if (ships[beingAttacked] === lilMizHuffNPuffs) {
-
-            
-// LOSER ALIENS KILLED YOU
-            alert("God youre a loser");
+            alert("God youre a loser");// if statement for player ship being destroyed
           } else if (
             ships[beingAttacked].name === ratShips[ratShips.length - 1].name
           ) {
             alert(
-              `%c ${ships[beingAttacked].name} destroyed!\n Those nasty rats has been destroyed!\nYou banished them to Uranus`,
+              `%c ${ships[beingAttacked].name} destroyed!\n Those nasty rats got u!\nlet me call my girl real quick`,
              
             );
           } 
 
-// WINER YOU KILLED THE ALIENS
+// using else statement if the rats ship was distroyed and prompted on the screen
           else {
             game.userResponse = prompt(
               `${ratShips[game.targetShip].name} destroyed!!\n${
                 lilMizHuffNPuffs.name
               } Hull: ${
                 lilMizHuffNPuffs.hull
-              }\nU gonna fight or run away like a baby`,
-              ""
+              }\nbye sweetie`,
             );
-            game.targetShip += 1; 
-
-
- // DO YOU WANT TO CONTINUE?
-            checkUserPrompt();
+            game.targetShip += 1;  
+            checkUserPrompt(); 
             return;
           }
-        } else {
-          
- // SWITCH THE ATTACKING SHIPS
+
+        } else { 
           temp = attacking;
           attacking = beingAttacked;
           beingAttacked = temp;
@@ -147,30 +139,25 @@ let game = {
     }
   };
 
-
-// CHECKS THE PLAYERS PROMPTS ENDGAME/CONTINUE
+// using if else if statement for the player to decided if they will play or leave
+startGame();
   let checkUserPrompt = () => {
     let responseUpperCase = game.userResponse.toUpperCase();
-    if (responseUpperCase === "ATTACK") {
+    if (responseUpperCase === "Kill") {
       shipsBattle(lilMizHuffNPuffs, ratShips[game.targetShip]);
-    } else if (responseUpperCase === "RETREAT") {
-      alert("Game Over! You Live to Fight Again Another Day.");
+    } else if (responseUpperCase === "Cry") {
+      alert("lol bro, they are just rats, why you scurred");
     }
   };
-  
-  let startGame = () => {
-    
+  // setting function to start the game, create the shits, display the message of the rats
+let startGame = () => {
+  createAlienShips();
 
-// BUILD THE ALIEN FLEET
-    createAlienShips();
-  
-    game.userResponse = prompt(
-      "Alien fleet approaching\nWould you like to ATTACK the first ship or RETREAT?",
-      ""
-    );
-    checkUserPrompt();
-  };
+  game.userResponse = prompt(
+    "Aw shiddd those NASTY RATS are approaching\nCommander, should we KILL or CRY?",
+    ""
+  );
+  checkUserPrompt();
+};
   
   
-// TRY IT OUT
-  startGame();
