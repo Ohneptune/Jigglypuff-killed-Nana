@@ -1,6 +1,7 @@
 // SPACE BATTLE OR RAT SPACE BATTLE???
 
 //psuedocode
+//define the game using props
 //game formart and ship (objects)
 //make an attack function reddit says math.random or math.floor
 //make the rat ship use arrays and constructor method
@@ -8,13 +9,13 @@
 //something for the battle, a function or something
 //make the box for the player to put in responses. a prompt
 
-
+//define the core things that make the game up
 let game = {
   round: 0,
   targetShip: 0,
   userAnswer: "",
 };
-
+//add the user ship and core things that the ship needs to do
 let lilMizHuffNPuff = {
   name: "Lil Miss Puff N Stuff",
   hull: 20,
@@ -29,7 +30,7 @@ let lilMizHuffNPuff = {
     }
   },
 };
-
+//add the enemy fleet along with core things
 class SpaceRats {
   constructor(name, hull, firePower, accuracy) {
     this.name = name;
@@ -46,7 +47,8 @@ class SpaceRats {
     }
   }
 }
-
+//give variables for each enemy ship from above constructor
+//enemy attack strength needs to be random but within player guidelines
 let ratShips = []; 
 let ratHull = [3, 4, 5, 6]; 
 let ratFirePower = [2, 3, 4]; 
@@ -60,7 +62,7 @@ let createRatsNests = () => {
     ratShips[i] = new SpaceRats(name, hull, firePower, accuracy); 
   }
 };
-
+//setting up the battle and assigning specific ships
 let spaceBattle = (ufo1, ufo2) => {
   let ships = [ufo1, ufo2];
   let attack = false;
@@ -74,10 +76,10 @@ let spaceBattle = (ufo1, ufo2) => {
       console.log(
         ` ${ships[attacking].name} attacked ${ships[beingAttacked].name}`
       );
-      
+      //showing on the console when ship is attacked and result
       attack = ships[attacking].attack();
       if (attack === true) {
-        ships[beingAttacked].hull -= ships[attacking].firePower; //Increase Fire power
+        ships[beingAttacked].hull -= ships[attacking].firePower; 
         console.log(
           ` yeah boi we got them rats! ${ships[beingAttacked].name} Hull: ${ships[beingAttacked].hull}`
         );
@@ -86,7 +88,7 @@ let spaceBattle = (ufo1, ufo2) => {
           ` shoot scooter we missed! ${ships[beingAttacked].name} Hull: ${ships[beingAttacked].hull}`
         );
       }
-      // 
+      // result for when ships are attacked, destroyed, and if the player wins
       if (ships[beingAttacked].hull <= 0) {
         console.log(
           `${ships[beingAttacked].name} has been banished to the shadow realm`
@@ -102,13 +104,14 @@ let spaceBattle = (ufo1, ufo2) => {
             
           );
         } 
+        //after destroying a ship, will the player continue or quit
         else {
           game.playerResponse = prompt(
             `${ratShips[game.targetShip].name} bye!\n${
               lilMizHuffNPuff.name
             } Hull: ${
               lilMizHuffNPuff.hull
-            }\nYou ready to KILL or you ready to CRY`,
+            }\nare you going to KILL or you gonna CRY`,
             ""
           );
           game.targetShip += 1; 
@@ -123,7 +126,7 @@ let spaceBattle = (ufo1, ufo2) => {
     }
   }
 };
-
+//options from the players response if they are going to continue or naw
 let checkUserAnswer = () => {
   let responseUpperCase = game.playerResponse.toUpperCase();
   if (responseUpperCase === "KILL") {
@@ -132,7 +135,7 @@ let checkUserAnswer = () => {
     alert("Lets see whats behind her Uranus");
   }
 };
-
+// console message when user starts up the game
 let startGame = () => {
   createRatsNests();
   game.playerResponse = prompt(
