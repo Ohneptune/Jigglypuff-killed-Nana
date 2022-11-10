@@ -1,148 +1,77 @@
-// SPACE BATTLE OR RAT SPACE BATTLE???
-
-//psuedocode
-//define the game using props
-//game formart and ship (objects)
-//make an attack function reddit says math.random or math.floor
-//make the rat ship use arrays and constructor method
-//need to make a function that regenerates rat ships after destroying one 
-//something for the battle, a function or something
-//make the box for the player to put in responses. a prompt
-
-//define the core things that make the game up
-let game = {
-  round: 0,
-  targetShip: 0,
-  userAnswer: "",
-};
-//add the user ship and core things that the ship needs to do
-let lilMizHuffNPuff = {
-  name: "Lil Miss Puff N Stuff",
-  hull: 20,
-  firePower: 5,
-  accuracy: 0.7,
-  attack: function () {
-    let attackChance = Math.random();
-    if (attackChance <= this.accuracy) {
-      return true;
-    } else {
-      return false;
-    }
-  },
-};
-//add the enemy fleet along with core things
-class SpaceRats {
-  constructor(name, hull, firePower, accuracy) {
-    this.name = name;
-    this.hull = hull;
-    this.firePower = firePower;
-    this.accuracy = accuracy;
-  }
-  attack() {
-    let attackChance = Math.random();
-    if (attackChance <= this.accuracy) {
-      return true;
-    } else {
-      return false;
-    }
-  }
+class Pokemon {
+	constructor(name, hull, firepower, accuracy) {
+		this.name = name;
+		this.hull = hull;
+		this.firepower = firepower;
+		this.accuracy = accuracy;
+	}
+	fire(enemy) {
+		if (this.accuracy <= randomDec(0, 1)) {
+			enemy.hull -= this.firepower;
+			console.log(
+				`Magikarp used its secret move....SPLASH on ${enemy.name} for ${this.firepower} barely any damage${enemy.name} has ${this
+					.hull} health left, and shes pissed`
+			);
+		} else {
+			console.log(`but nothing happened! ${enemy.name}!`);
+		}
+	}
+	retreat() {
+		console.log('Jigglypuff won, she squeals I AM YOUR GOD NOW');
+	}
 }
-//give variables for each enemy ship from above constructor
-//enemy attack strength needs to be random but within player guidelines
-let ratShips = []; 
-let ratHull = [3, 4, 5, 6]; 
-let ratFirePower = [2, 3, 4]; 
-let ratAcc = [0.6, 0.7, 0.8]; 
-let createRatsNests = () => {
-  for (let i = 0; i < 6; i++) {
-    let name = "Nasty Ass Rat Fleet " + (i + 1);
-    let hull = ratHull[Math.floor(Math.random() * 4)];
-    let firePower = ratFirePower[Math.floor(Math.random() * 3)];
-    let accuracy = ratAcc[Math.floor(Math.random() * 3)];
-    ratShips[i] = new SpaceRats(name, hull, firePower, accuracy); 
-  }
-};
-//setting up the battle and assigning specific ships
-let spaceBattle = (ufo1, ufo2) => {
-  let ships = [ufo1, ufo2];
-  let attack = false;
-  let attacking = 0;
-  let beingAttacked = 1;
-  let temp;
-  console.log("round one begin");
-  while (ships[beingAttacked].hull > 0) {
-    if (ships[beingAttacked].hull > 0) {
-      console.log("\n");
-      console.log(
-        ` ${ships[attacking].name} attacked ${ships[beingAttacked].name}`
-      );
-      //showing on the console when ship is attacked and result
-      attack = ships[attacking].attack();
-      if (attack === true) {
-        ships[beingAttacked].hull -= ships[attacking].firePower; 
-        console.log(
-          ` yeah boi we got them rats! ${ships[beingAttacked].name} Hull: ${ships[beingAttacked].hull}`
-        );
-      } else {
-        console.log(
-          ` shoot scooter we missed! ${ships[beingAttacked].name} Hull: ${ships[beingAttacked].hull}`
-        );
-      }
-      // result for when ships are attacked, destroyed, and if the player wins
-      if (ships[beingAttacked].hull <= 0) {
-        console.log(
-          `${ships[beingAttacked].name} has been banished to the shadow realm`
-          
-        );
-        if (ships[beingAttacked] === lilMizHuffNPuff) {
-          alert("Game Over!!!");
-        } else if (
-          ships[beingAttacked].name === ratShips[ratShips.length - 1].name
-        ) {
-          alert(
-            ` ${ships[beingAttacked].name} The rats have been exterminated!\nFlawless Victory`
-            
-          );
-        } 
-        //after destroying a ship, will the player continue or quit
-        else {
-          game.playerResponse = prompt(
-            `${ratShips[game.targetShip].name} bye!\n${
-              lilMizHuffNPuff.name
-            } Hull: ${
-              lilMizHuffNPuff.hull
-            }\nare you going to KILL or you gonna CRY`,
-            ""
-          );
-          game.targetShip += 1; 
-          checkUserAnswer();
-          return;
-        }
-      } else {
-        temp = attacking;
-        attacking = beingAttacked;
-        beingAttacked = temp;
-      }
-    }
-  }
-};
-//options from the players response if they are going to continue or naw
-let checkUserAnswer = () => {
-  let responseUpperCase = game.playerResponse.toUpperCase();
-  if (responseUpperCase === "KILL") {
-    spaceBattle(lilMizHuffNPuff, ratShips[game.targetShip]);
-  } else if (responseUpperCase === "CRY") {
-    alert("Lets see whats behind her Uranus");
-  }
-};
-// console message when user starts up the game
-let startGame = () => {
-  createRatsNests();
-  game.playerResponse = prompt(
-    "Aw shiddddd its them fucking Rats again\nCaptain should be Kill or go Cry",
-    ""
-  );
-  checkUserAnswer();
+
+const magikarp = new Pokemon('Shiny Magikarp', 20, 5, 0.7);
+
+const randomInt = (min, max) => {
+	min = Math.ceil(min);
+	max = Math.floor(max);
+	return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
-startGame();
+const randomDec = (min, max) => {
+	let num = Math.random() * (max - min) + min;
+	return Math.round(num * 10) / 10;
+};
+
+const jigz = [];
+
+const wildJigz = () => {
+	for (var i = 1; i < 7; i++) {
+		let newJigz = new Pokemon(`Jigglypuff ${i}`, randomInt(3, 6), randomInt(2, 4), randomDec(0.6, 0.8));
+
+		jigz.push(newJigz);
+	}
+};
+
+wildJigz();
+console.log(jigz);
+
+
+
+const battle = () => {
+	if (jigz[0].hull > 0 && magikarp.hull > 0) {
+		magikarp.fire(jigz[0]);
+		jigz[0].fire(magikarp);
+		if (jigz[0].hull <= 0) {
+			jigz.shift();
+		} else {
+			let choice = prompt('A hoard of wild Jigglypuffs have killed Nana with a switchblade, will you battle them or flee?');
+			if (choice.toLowerCase() == 'battle' || choice.toLowerCase() == '') {
+				battle();
+			} else {
+				alert('Im sorry Nana!!');
+			}
+		}
+	}
+};
+
+for (var i = 0; i < 6; i++) {
+	battle();
+	console.log(jigz[0]);
+	console.log(magikarp);
+	if (jigz.length === 0) {
+		alert('YO THAT JACKET IS TIGHT SON NAAA MEAAAAN');
+	} else if (magikarp.hull <= 0) {
+		alert('YOU DIED. EVEN DEAD NANAS DISSAPOINTMENT CUTS WORSE THAN JIGGLYPUFFS SWITCHBLADE');
+  }}
